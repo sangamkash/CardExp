@@ -27,6 +27,8 @@ namespace CardGame.GameData
         private const string JsonFilePath = "CardGame/Data";
         private const string FileName = "LevelData.json";
 
+        public AllLevelData GetLevelData() => data;
+
         public void Save()
         {
             Debug.Log("<color=green>TAG::LevelDataManager========================Saving Data ====================================</color>");
@@ -37,7 +39,7 @@ namespace CardGame.GameData
                 Debug.Log($"Create path {path}");
                 Directory.CreateDirectory(path);
             }
-
+            
             var filepath = path + "/" + FileName;
             filepath.WriteFile(JsonUtility.ToJson(data, true));
         }
@@ -57,7 +59,6 @@ namespace CardGame.GameData
                 {
                     Debug.LogError($"TAG::LevelDataManager fail to parse Json {ex}");
                 }
-                
             }
         }
     }

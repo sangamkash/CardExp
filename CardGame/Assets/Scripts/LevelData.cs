@@ -15,6 +15,6 @@ namespace CardGame.GameData
     [System.Serializable]
     public class AllLevelData
     {
-        public LevelData[] levelDatas;
+        public List<LevelData> levelDatas;
     }
 }
