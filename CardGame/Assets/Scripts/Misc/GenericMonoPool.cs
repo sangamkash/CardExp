@@ -9,7 +9,7 @@ public class GenericMonoPool<T> where T: MonoBehaviour
 
     private T prefab;
     
-    public GenericMonoPool(T Prefab,int capacity=20)
+    public GenericMonoPool(T prefab,int capacity=20)
     {
         this.prefab = prefab;
         activePool = new List<T>(capacity);
@@ -30,7 +30,7 @@ public class GenericMonoPool<T> where T: MonoBehaviour
         }
         else
         {
-            var t = MonoBehaviour.Instantiate(prefab, container);
+            var t = MonoBehaviour.Instantiate(prefab.gameObject, container).GetComponent<T>();
             activePool.Add(t);
             t.gameObject.SetActive(true);
             return t;

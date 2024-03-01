@@ -5,6 +5,7 @@ using System.IO;
 using CardGame.GameData;
 using MagnasStudio.Util;
 using UnityEngine;
+using Newtonsoft.Json;
 
 namespace CardGame.GameData
 {
@@ -36,12 +37,11 @@ namespace CardGame.GameData
             var directoryPath = path.Replace("/", "\\");
             if (!Directory.Exists(path))
             {
-                Debug.Log($"Create path {path}");
                 Directory.CreateDirectory(path);
             }
             
             var filepath = path + "/" + FileName;
-            filepath.WriteFile(JsonUtility.ToJson(data, true));
+            filepath.WriteFile(JsonConvert.SerializeObject(data,Formatting.Indented));
         }
 
         private void LoadData()
@@ -51,9 +51,10 @@ namespace CardGame.GameData
             var json = string.Empty;
             if (filepath.CheckAndReadFile(out json))
             {
+                Debug.Log(json);
                 try
                 {
-                    data = JsonUtility.FromJson<AllLevelData>(json);
+                    data = JsonConvert.DeserializeObject<AllLevelData>(json);
                 }
                 catch (Exception ex)
                 {

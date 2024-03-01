@@ -41,17 +41,17 @@
     <ImplicitlyExpandDesignTimeFacades>false</ImplicitlyExpandDesignTimeFacades>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Assets\Scripts\StartMenu.cs" />
-    <Compile Include="Assets\Scripts\CardData.cs" />
-    <Compile Include="Assets\Scripts\Misc\MsFileExtensions.cs" />
-    <Compile Include="Assets\Scripts\Creator\GridLayoutData.cs" />
-    <Compile Include="Assets\Scripts\Creator\LevelDesigner.cs" />
-    <Compile Include="Assets\Scripts\LevelData.cs" />
     <Compile Include="Assets\Scripts\Creator\LevelDataManager.cs" />
-    <Compile Include="Assets\Scripts\Creator\CardLayoutHandler.cs" />
-    <Compile Include="Assets\Scripts\Misc\GenericMonoPool.cs" />
+    <Compile Include="Assets\Scripts\LevelData.cs" />
+    <Compile Include="Assets\Scripts\Misc\MsFileExtensions.cs" />
+    <Compile Include="Assets\Scripts\StartMenu.cs" />
     <Compile Include="Assets\Scripts\Creator\Card.cs" />
+    <Compile Include="Assets\Scripts\CardData.cs" />
     <Compile Include="Assets\Scripts\GameConstants.cs" />
+    <Compile Include="Assets\Scripts\Creator\GridLayoutData.cs" />
+    <Compile Include="Assets\Scripts\Misc\GenericMonoPool.cs" />
+    <Compile Include="Assets\Scripts\Creator\CardLayoutHandler.cs" />
+    <Compile Include="Assets\Scripts\Creator\LevelDesigner.cs" />
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile Overlay.shader" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_Bitmap.shader" />
@@ -325,6 +325,9 @@
     </Reference>
     <Reference Include="ReportGeneratorMerged">
       <HintPath>H:\UnityProject\Experiment\CardExp\CardGame\Library\PackageCache\com.unity.testtools.codecoverage@1.2.5\lib\ReportGenerator\ReportGeneratorMerged.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>H:\UnityProject\Experiment\CardExp\CardGame\Library\PackageCache\com.unity.nuget.newtonsoft-json@3.2.1\Runtime\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Android.Types">
       <HintPath>H:\Unity Installed\2021.3.35f1\Editor\Data\PlaybackEngines\AndroidPlayer\Unity.Android.Types.dll</HintPath>
@@ -737,6 +740,9 @@
     <Reference Include="Unity.VisualScripting.SettingsProvider.Editor">
       <HintPath>H:\UnityProject\Experiment\CardExp\CardGame\Library\ScriptAssemblies\Unity.VisualScripting.SettingsProvider.Editor.dll</HintPath>
     </Reference>
+    <Reference Include="Unity.2D.Sprite.Editor">
+      <HintPath>H:\UnityProject\Experiment\CardExp\CardGame\Library\ScriptAssemblies\Unity.2D.Sprite.Editor.dll</HintPath>
+    </Reference>
     <Reference Include="Unity.TestTools.CodeCoverage.Editor.OpenCover.Mono.Reflection">
       <HintPath>H:\UnityProject\Experiment\CardExp\CardGame\Library\ScriptAssemblies\Unity.TestTools.CodeCoverage.Editor.OpenCover.Mono.Reflection.dll</HintPath>
     </Reference>
@@ -766,9 +772,6 @@
     </Reference>
     <Reference Include="Unity.EditorCoroutines.Editor">
       <HintPath>H:\UnityProject\Experiment\CardExp\CardGame\Library\ScriptAssemblies\Unity.EditorCoroutines.Editor.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.2D.Sprite.Editor">
-      <HintPath>H:\UnityProject\Experiment\CardExp\CardGame\Library\ScriptAssemblies\Unity.2D.Sprite.Editor.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>

@@ -39,6 +39,7 @@ namespace CardGame.CreatorSystem
             loadBtn.onClick.AddListener(Load);
             levelDropdown.onValueChanged.AddListener(OnLevelSelected);
             gridDropdown.onValueChanged.AddListener(OnGridSelected);
+            currentGrid = gridLayoutData.GetAllGridLayouts()[0];
             PopulateUI();
         }
 
@@ -62,14 +63,25 @@ namespace CardGame.CreatorSystem
         {
             if (isDataValid())
             {
+                var cardIds = new int[currentGrid.x][];
+                for (int i = 0; i < currentGrid.x; i++)
+                {
+                    cardIds[i] = new int[currentGrid.y];
+                    for (int j = 0; j < currentGrid.y; j++)
+                    {
+                        cardIds[i][j] = -1;
+                    }
+                }
                 var newLevelData = new LevelData()
                 {
                      levelName=levelNameIpf.text,
-                     gridType= currentGrid,
+                     gridDimension= currentGrid,
+                     cardIds = cardIds
                 };
-                levelData.levelDatas.Add(newLevelData);
+                levelData.levelDatas.Insert(0, newLevelData);
                 currentLevelData = newLevelData;
                 Save();
+                Load();
             }
         }
         private bool isDataValid()
@@ -77,7 +89,7 @@ namespace CardGame.CreatorSystem
             //TODO Do add validation
             return true;
         }
-        private void PopulateUI()
+        private void PopulateUI(int index=0)
         {
             var levelNames = new List<string>() { "None" };
             levelNames.AddRange(levelData.levelDatas.Select(level => level.levelName).ToList());
@@ -94,7 +106,16 @@ namespace CardGame.CreatorSystem
             //TODO 
             if (currentLevelData != null)
             {
-               cardLayoutHandler.CreateLayout(currentLevelData.gridType);
+               cardLayoutHandler.CreateLayout(currentLevelData.gridDimension);
+               for (int i = 0; i < currentLevelData.gridDimension.x; i++)
+               {
+                   for (int j = 0; j < currentLevelData.gridDimension.y; j++)
+                   {
+                       var cardId = currentLevelData.cardIds[i][j];
+                       cardLayoutHandler.SetImageAtIndex(new Vector2Int(i, j), cardData.GetCardById(cardId));
+                   }
+               }
+               
             }
         }
 

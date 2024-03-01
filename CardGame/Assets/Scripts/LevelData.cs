@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace CardGame.GameData
 {
@@ -8,7 +9,7 @@ namespace CardGame.GameData
     public class LevelData
     {
         public string levelName;
-        public Vector2Int gridType;
+        public Vector2Int gridDimension;
         public int[][] cardIds;
     }
     

@@ -14,6 +14,7 @@ namespace MagnasStudio.Util
             if (exit)
             {
                 json= File.ReadAllText(path);
+                return true;
             }
             json=string.Empty;
             return false;

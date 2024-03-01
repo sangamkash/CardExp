@@ -9,6 +9,12 @@ namespace CardGame.GameData
     {
         [SerializeField] private Sprite[] cards;
         public int GetCardsCount => cards.Length;
-        public Sprite GetCardById(int id) => cards[id];
+
+        public Sprite GetCardById(int id)
+        {
+            if(id>=0 && id<cards.Length)
+            return cards[id];
+            return null;
+        }
     }
 }

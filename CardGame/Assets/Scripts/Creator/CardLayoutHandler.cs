@@ -32,16 +32,19 @@ namespace CardGame.CreatorSystem
             gridLayoutGroup.cellSize = Vector2.one * cellSize;
             gridLayoutGroup.spacing = Vector2.one * cellSpacing;
             cardLayout = new Card[dimension.x][];
+            gridLayoutGroup.constraint = GridLayoutGroup.Constraint.FixedColumnCount;
+            gridLayoutGroup.constraintCount = dimension.x;
+            
             for (var i = 0; i < dimension.x; i++)
             {
                 cardLayout[i] = new Card[dimension.y];
                 for (var j = 0; j < dimension.y; j++)
                 {
                     var t = pool.GetObject(container);
+                    var ci = new Vector2Int(i, j);
                     t.Init(() =>
                     {
-                        var index = new Vector2Int(i, j);
-                        OnCardSelected(index);
+                        OnCardSelected(ci);
                     }, null, false);
                     cardLayout[i][j] = t;
                     if (i == 0 && j == 0)
@@ -55,7 +58,7 @@ namespace CardGame.CreatorSystem
 
         private Card GetCardAtIndex(Vector2Int index)
         {
-            if (index.x < dimension.x && index.y < dimension.y)
+            if (index.x < dimension.x && index.y < dimension.y && index.x>=0 && index.y >=0)
             {
                 return cardLayout[index.x][index.y];
             }
