@@ -24,7 +24,8 @@ public class GenericMonoPool<T> where T: MonoBehaviour
             var t = inActivePool[index];
             activePool.Add(t);
             inActivePool.RemoveAt(index);
-            t.transform.parent = container;
+            if (t.transform.parent != container)
+                t.transform.SetParent(container);
             t.gameObject.SetActive(true);
             return t;
         }

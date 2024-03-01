@@ -34,7 +34,7 @@ namespace CardGame.CreatorSystem
             cardLayout = new Card[dimension.x][];
             gridLayoutGroup.constraint = GridLayoutGroup.Constraint.FixedColumnCount;
             gridLayoutGroup.constraintCount = dimension.x;
-            
+            var k = 0;
             for (var i = 0; i < dimension.x; i++)
             {
                 cardLayout[i] = new Card[dimension.y];
@@ -52,6 +52,8 @@ namespace CardGame.CreatorSystem
                         selectedCard = t;
                         t.MarkAsSelected(true);
                     }
+                    t.transform.SetSiblingIndex(k);
+                    k++;
                 }
             }
         }
