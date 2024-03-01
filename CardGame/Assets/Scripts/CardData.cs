@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace CardGame.GameData
 {
-    [CreateAssetMenu(fileName = "CardData", menuName = "CardData", order = 1)]
+    [CreateAssetMenu(fileName = "CardData", menuName = "CardGame/CardData", order = 1)]
     public class CardData : ScriptableObject
     {
         [SerializeField] private Sprite[] cards;
