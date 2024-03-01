@@ -4,43 +4,52 @@ using System.Collections.Generic;
 using System.Linq;
 using CardGame.CreatorSystem.Data;
 using CardGame.GameData;
+using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 namespace CardGame.CreatorSystem
 {
     public class LevelDesigner : MonoBehaviour
     {
+        [SerializeField] private Button backBtn;
         [Header("LoadOrCreate Ref")] 
-        [SerializeField] private Dropdown levelDropdown;
-        [SerializeField] private Button LoadBtn;
+        [SerializeField] private TMP_Dropdown levelDropdown;
+        [SerializeField] private Button loadBtn;
         [SerializeField] private Button CreateBtn;
 
         [Header("Level name")]
-        [SerializeField] private InputField levelNameIpf;
-        [SerializeField] private Dropdown gridDropdown;
-
-        [Header("Grid")]
-        [SerializeField] private GridLayoutGroup gridLayout;
+        [SerializeField] private TMP_InputField levelNameIpf;
+        [SerializeField] private TMP_Dropdown gridDropdown;
 
         [Header("Other Data")]
         [SerializeField] private CardData cardData;
         [SerializeField] private GridLayoutData gridLayoutData;
-        private Vector2 currentGrid = new Vector2(2, 2);
+        [SerializeField] private CardLayoutHandler cardLayoutHandler;
+        
+        private Vector2Int currentGrid = new Vector2Int(2, 2);
         private LevelData currentLevelData;
         private AllLevelData levelData => LevelDataManager.Instance.GetLevelData();
 
         public void Awake()
         {
+            backBtn.onClick.AddListener(OnBackBtnClick);
             CreateBtn.onClick.AddListener(Create);
-            LoadBtn.onClick.AddListener(Load);
+            loadBtn.onClick.AddListener(Load);
             levelDropdown.onValueChanged.AddListener(OnLevelSelected);
             gridDropdown.onValueChanged.AddListener(OnGridSelected);
+            PopulateUI();
+        }
+
+        private void OnBackBtnClick()
+        {
+            SceneManager.LoadScene(GameConstants.Scene_StartMenu);
         }
 
         private void OnLevelSelected(int index)
         {
-            currentLevelData = levelData.levelDatas[index];
+            currentLevelData = levelData.levelDatas[index-1];
         }
 
         private void OnGridSelected(int index)
@@ -60,6 +69,7 @@ namespace CardGame.CreatorSystem
                 };
                 levelData.levelDatas.Add(newLevelData);
                 currentLevelData = newLevelData;
+                Save();
             }
         }
         private bool isDataValid()
@@ -67,9 +77,10 @@ namespace CardGame.CreatorSystem
             //TODO Do add validation
             return true;
         }
-        private void Populate()
+        private void PopulateUI()
         {
-            var levelNames = levelData.levelDatas.Select(level => level.levelName).ToList();
+            var levelNames = new List<string>() { "None" };
+            levelNames.AddRange(levelData.levelDatas.Select(level => level.levelName).ToList());
             levelDropdown.ClearOptions();
             levelDropdown.AddOptions(levelNames);
             var gridOptions = gridLayoutData.GetAllGridLayouts()
@@ -81,12 +92,16 @@ namespace CardGame.CreatorSystem
         private void Load()
         {
             //TODO 
+            if (currentLevelData != null)
+            {
+               cardLayoutHandler.CreateLayout(currentLevelData.gridType);
+            }
         }
 
         private void Save()
         {
             LevelDataManager.Instance.Save();
-            Populate();
+            PopulateUI();
         }
     }
 }

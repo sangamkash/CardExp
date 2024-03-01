@@ -8,7 +8,7 @@ namespace CardGame.GameData
     public class LevelData
     {
         public string levelName;
-        public Vector2 gridType;
+        public Vector2Int gridType;
         public int[][] cardIds;
     }
     
@@ -16,5 +16,10 @@ namespace CardGame.GameData
     public class AllLevelData
     {
         public List<LevelData> levelDatas;
+
+        public AllLevelData()
+        {
+            levelDatas = new List<LevelData>();
+        }
     }
 }
