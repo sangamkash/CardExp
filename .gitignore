@@ -15712,3 +15712,8 @@ CardGame/Temp/UnityLockfile
 CardGame/Temp/workerlic
 CardGame/UserSettings/EditorUserSettings.asset
 CardGame/UserSettings/Search.settings
+CardGame/Library/
+CardGame/Temp/
+CardGame/Logs/
+CardGame/.idea/
+CardGame/obj/
