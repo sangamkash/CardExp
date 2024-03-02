@@ -53,6 +53,7 @@
     <Compile Include="Assets\Scripts\Creator\CardLayoutHandler.cs" />
     <Compile Include="Assets\Scripts\Creator\LevelDesigner.cs" />
     <Compile Include="Assets\Scripts\Creator\CardSelector.cs" />
+    <Compile Include="Assets\Scripts\LevelSelector\LevelSelector.cs" />
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile Overlay.shader" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_Bitmap.shader" />

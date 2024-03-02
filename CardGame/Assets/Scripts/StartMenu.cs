@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 namespace CardGame.BootSystem
@@ -19,12 +20,12 @@ namespace CardGame.BootSystem
 
         private void LoadLevelCreator()
         {
-
+            SceneManager.LoadScene(GameConstants.Scene_Creator);
         }
 
         private void LoadLevel()
         {
-
+            SceneManager.LoadScene(GameConstants.Scene_LevelSelector);
         }
     }
 }
