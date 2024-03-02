@@ -96,10 +96,13 @@ namespace CardGame.GamePlay
             {
                 foreach (var data in datas)
                 {
-                    if (data > 0)
+                    if (data >= 0)
                     {
                         isCompleted = false;
+                        break;
                     }
+                    if(!isCompleted)
+                        break;
                 }
             }
             

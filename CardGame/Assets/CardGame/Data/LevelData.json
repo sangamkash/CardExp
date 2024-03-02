@@ -1,6 +1,42 @@
 {
   "levelDatas": [
     {
+      "levelName": "VeryEasy",
+      "gridDimension": {
+        "x": 4,
+        "y": 4,
+        "magnitude": 5.656854,
+        "sqrMagnitude": 32
+      },
+      "cardIds": [
+        [
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          1,
+          1,
+          1,
+          1
+        ],
+        [
+          1,
+          1,
+          1,
+          1
+        ],
+        [
+          0,
+          0,
+          0,
+          0
+        ]
+      ],
+      "time": 120
+    },
+    {
       "levelName": "U_space",
       "gridDimension": {
         "x": 6,

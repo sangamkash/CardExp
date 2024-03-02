@@ -42,22 +42,22 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Assets\Scripts\Creator\LevelDataManager.cs" />
+    <Compile Include="Assets\Scripts\Creator\CardSelector.cs" />
     <Compile Include="Assets\Scripts\LevelData.cs" />
+    <Compile Include="Assets\Scripts\Gameplay\GameCard.cs" />
+    <Compile Include="Assets\Scripts\Gameplay\GameManager.cs" />
+    <Compile Include="Assets\Scripts\Gameplay\GameCardGridLayoutHandler.cs" />
     <Compile Include="Assets\Scripts\Misc\MsFileExtensions.cs" />
     <Compile Include="Assets\Scripts\StartMenu.cs" />
     <Compile Include="Assets\Scripts\Creator\Card.cs" />
     <Compile Include="Assets\Scripts\CardData.cs" />
     <Compile Include="Assets\Scripts\GameConstants.cs" />
+    <Compile Include="Assets\Scripts\GenericLayoutHandler.cs" />
     <Compile Include="Assets\Scripts\Creator\GridLayoutData.cs" />
     <Compile Include="Assets\Scripts\Misc\GenericMonoPool.cs" />
     <Compile Include="Assets\Scripts\Creator\CardLayoutHandler.cs" />
-    <Compile Include="Assets\Scripts\Creator\LevelDesigner.cs" />
-    <Compile Include="Assets\Scripts\Creator\CardSelector.cs" />
     <Compile Include="Assets\Scripts\LevelSelector\LevelSelector.cs" />
-    <Compile Include="Assets\Scripts\GenericLayoutHandler.cs" />
-    <Compile Include="Assets\Scripts\Gameplay\GameManager.cs" />
-    <Compile Include="Assets\Scripts\Gameplay\GameCardGridLayoutHandler.cs" />
-    <Compile Include="Assets\Scripts\Gameplay\GameCard.cs" />
+    <Compile Include="Assets\Scripts\Creator\LevelDesigner.cs" />
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile Overlay.shader" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_Bitmap.shader" />

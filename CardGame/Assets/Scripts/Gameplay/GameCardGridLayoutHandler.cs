@@ -47,6 +47,8 @@ namespace CardGame.GamePlay
             }
             lastSelectedCard = cardId;
             lastSelectedIndex = index;
+            if (matchFound)
+                lastSelectedCard = -1;
             if (clickCount%2 ==0)
             {
                 onMatch?.Invoke(matchFound);
