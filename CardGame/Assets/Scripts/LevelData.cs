@@ -11,6 +11,7 @@ namespace CardGame.GameData
         public string levelName;
         public Vector2Int gridDimension;
         public int[][] cardIds;
+        public int time;
     }
     
     [System.Serializable]

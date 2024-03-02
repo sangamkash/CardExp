@@ -11,10 +11,11 @@ namespace CardGame.GamePlay
         [SerializeField] private CardData cardData;
         private int lastSelectedCard = -1;
         private Vector2Int lastSelectedIndex= new Vector2Int(-1,-1);
-        private Action onMatch;
+        private Action<bool> onMatch;
         private LevelData levelData;
+        private int clickCount;
 
-        public void CreateLayout(LevelData levelData,Action onMatch)
+        public void CreateLayout(LevelData levelData,Action<bool> onMatch)
         {
             this.levelData = levelData;
             this.onMatch = onMatch;
@@ -31,15 +32,21 @@ namespace CardGame.GamePlay
 
         private void OnCardSelected(int cardId,Vector2Int index)
         {
+            clickCount++;
+            var matchFound = false;
             if (lastSelectedCard == cardId && lastSelectedIndex != index)
             {
                 GetObjByIndex(lastSelectedIndex).MarkAsReviled();
                 GetObjByIndex(index).MarkAsReviled();
-                onMatch?.Invoke();
+                matchFound = true;
+                clickCount = 0;
             }
-
             lastSelectedCard = cardId;
             lastSelectedIndex = index;
+            if (clickCount%2 ==0)
+            {
+                onMatch?.Invoke(matchFound);
+            }
         }
     }
 }

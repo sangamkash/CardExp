@@ -22,8 +22,9 @@ namespace CardGame.CreatorSystem
         [SerializeField] private Button loadBtn;
         [SerializeField] private Button CreateBtn;
 
-        [Header("Level name")] [SerializeField]
-        private TMP_InputField levelNameIpf;
+        [Header("Level name")] 
+        [SerializeField] private TMP_InputField levelNameIpf;
+        [SerializeField] private TMP_InputField timeIpf;
 
         [SerializeField] private TMP_Dropdown gridDropdown;
         [SerializeField] private Button saveBtn;
@@ -41,6 +42,7 @@ namespace CardGame.CreatorSystem
         private AllLevelData levelData => LevelDataManager.Instance.GetLevelData();
         private const string defaultLevelName = "Test";
         private Vector2Int currentGridIndex;
+        private int defaultTime=10;
 
         public void Awake()
         {
@@ -53,14 +55,28 @@ namespace CardGame.CreatorSystem
             saveBtn.onClick.AddListener(Save);
             DeleteBtn.onClick.AddListener(DeleteData);
             currentGridDimension = gridLayoutData.GetAllGridLayouts()[0];
+            timeIpf.text = defaultTime.ToString();
             levelNameIpf.text = defaultLevelName;
             levelNameIpf.onValueChanged.AddListener(OnTextEnter);
+            timeIpf.onValueChanged.AddListener(OnTimeEnter);
             var gridOptions = gridLayoutData.GetAllGridLayouts()
                 .Select(gridLayoutData => $"{gridLayoutData.x}x{gridLayoutData.y}").ToList();
             gridDropdown.ClearOptions();
             gridDropdown.AddOptions(gridOptions);
             PopulateUI();
-            
+        }
+
+        private void OnTimeEnter(string time)
+        {
+            var timeValue = defaultTime;
+            if (currentLevelData != null)
+            {
+                if (!int.TryParse(time, out timeValue))
+                {
+                    Debug.Log($"<color=red>Enter valid Time </color>");
+                }
+                currentLevelData.time = timeValue;
+            }
         }
 
         private void DeleteData()
@@ -199,6 +215,12 @@ namespace CardGame.CreatorSystem
                     return false;
                 }
             }
+
+            if (data.time <= 0)
+            {
+                Debug.Log($"<color=red>Make sure the timer should be greater 0</color>");
+                return false;
+            }
             return true;
         }
 
@@ -240,6 +262,7 @@ namespace CardGame.CreatorSystem
             if (currentLevelData != null)
             {
                 levelNameIpf.text = currentLevelData.levelName;
+                timeIpf.text = currentLevelData.time.ToString();
                 var k = 0;
                 foreach (var option in gridDropdown.options)
                 {
