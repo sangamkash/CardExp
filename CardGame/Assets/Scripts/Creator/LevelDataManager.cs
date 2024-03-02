@@ -51,7 +51,6 @@ namespace CardGame.GameData
             var json = string.Empty;
             if (filepath.CheckAndReadFile(out json))
             {
-                Debug.Log(json);
                 try
                 {
                     data = JsonConvert.DeserializeObject<AllLevelData>(json);

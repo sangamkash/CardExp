@@ -27,6 +27,7 @@ namespace CardGame.CreatorSystem
 
         [SerializeField] private TMP_Dropdown gridDropdown;
         [SerializeField] private Button saveBtn;
+        [SerializeField] private Button DeleteBtn;
 
         [Header("Other Data")] [SerializeField]
         private CardData cardData;
@@ -50,6 +51,7 @@ namespace CardGame.CreatorSystem
             levelDropdown.onValueChanged.AddListener(OnLevelSelected);
             gridDropdown.onValueChanged.AddListener(OnGridSelected);
             saveBtn.onClick.AddListener(Save);
+            DeleteBtn.onClick.AddListener(DeleteData);
             currentGridDimension = gridLayoutData.GetAllGridLayouts()[0];
             levelNameIpf.text = defaultLevelName;
             levelNameIpf.onValueChanged.AddListener(OnTextEnter);
@@ -61,9 +63,21 @@ namespace CardGame.CreatorSystem
             
         }
 
+        private void DeleteData()
+        {
+            if(currentLevelData != null)
+            {
+                levelData.levelDatas.Remove(currentLevelData);
+                currentLevelData = null;
+            }
+            PopulateUI();
+        }
+
         private void OnCardSelect(int cardId)
         {
             cardLayoutHandler.SetImageAtIndex(currentGridIndex, cardData.GetCardById(cardId));
+            currentLevelData.cardIds[currentGridIndex.x][currentGridIndex.y] = cardId;
+            Debug.Log(currentGridIndex + "   " + cardId);
         }
 
         private void OnTextEnter(string str)
@@ -134,9 +148,57 @@ namespace CardGame.CreatorSystem
             PopulateUI();
         }
 
-        private bool isDataValid()
+        private bool isDataValid(LevelData data)
         {
-            //TODO Do add validation
+            if (data == null)
+                return false;
+            var gridLayout = gridLayoutData.GetAllGridLayouts();
+            var gridMatched = false;
+            for (int i = 0; i <gridLayout.Length; i++)
+            {
+                if (data.gridDimension == gridLayout[i])
+                    gridMatched = true;
+            }
+            if (!gridMatched)
+            {
+                Debug.Log($"<color=red>Improper Grid dimension</color>");
+                return false;
+            }
+            
+            var dic = new Dictionary<int, int>();//id and count;
+            for (var i = 0; i < data.cardIds.Length; i++)
+            {
+                var cards = data.cardIds[i];
+                for (var j = 0; j < cards.Length; j++)
+                {
+                    var card = cards[j];
+                    if (card == -1)
+                    {
+                        Debug.Log($"<color=red>Image is not assigned to Grid {i}x{j}</color>");
+                        return false;
+                    }
+                    else
+                    {
+                        if (dic.ContainsKey(card))
+                        {
+                            dic[card] += 1;
+                        }
+                        else
+                        {
+                            dic.Add(card, 1);
+                        }
+                    }
+                }
+            }
+
+            foreach (var cardCount in dic)
+            {
+                if (cardCount.Value % 2 != 0)
+                {
+                    Debug.Log($"<color=red>Make sure the image should be assign in pair </color>");
+                    return false;
+                }
+            }
             return true;
         }
 
@@ -209,6 +271,15 @@ namespace CardGame.CreatorSystem
 
         private void Save()
         {
+            foreach (var data in levelData.levelDatas)
+            {
+                Debug.Log($"<color=yellow>==== Starting analysing : ''{data.levelName}''====</color>");
+                if (!isDataValid(data))
+                {
+                    Debug.Log($"<color=red>Error found in : '' {data.levelName} '' </color>");
+                    return;
+                }
+            }
             LevelDataManager.Instance.Save();
             PopulateUI();
         }
