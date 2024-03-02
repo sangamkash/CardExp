@@ -13,12 +13,14 @@ namespace CardGame.LevelRender
     public class LevelSelector : MonoBehaviour
     {
         [SerializeField] private Transform container;
+        [SerializeField] private Button backBtn;
         [SerializeField] private Button prefab;
         [SerializeField] private GameObject warning;
         [SerializeField] private GameObject scrollView;
         private AllLevelData levelData => LevelDataManager.Instance.GetLevelData();
         private void Start()
         {
+            backBtn.onClick.AddListener(OnBackBtnClicked);
             var isHasLevel = levelData.levelDatas.Count > 0;
             warning.SetActive(!isHasLevel);
             scrollView.SetActive(isHasLevel);
@@ -30,6 +32,11 @@ namespace CardGame.LevelRender
                 t.GetComponentInChildren<TextMeshProUGUI>().text = level.levelName;
                 t.onClick.AddListener(() => OnLevelSelected(index));
             }
+        }
+
+        private void OnBackBtnClicked()
+        {
+            SceneManager.LoadScene(GameConstants.Scene_StartMenu);
         }
 
         private void OnLevelSelected(int levelIndex)
