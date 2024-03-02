@@ -6,6 +6,7 @@ using UnityEngine;
 
 namespace CardGame.GamePlay
 {
+    //TODO Change the class name too big
     public class GameCardGridLayoutHandler : CardLayoutHandler<GameCard>
     {
         [SerializeField] private CardData cardData;

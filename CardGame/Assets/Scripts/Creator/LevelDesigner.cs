@@ -93,7 +93,6 @@ namespace CardGame.CreatorSystem
         {
             cardLayoutHandler.SetImageAtIndex(currentGridIndex, cardData.GetCardById(cardId));
             currentLevelData.cardIds[currentGridIndex.x][currentGridIndex.y] = cardId;
-            Debug.Log(currentGridIndex + "   " + cardId);
         }
 
         private void OnTextEnter(string str)
