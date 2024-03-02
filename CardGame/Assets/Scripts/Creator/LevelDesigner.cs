@@ -33,14 +33,17 @@ namespace CardGame.CreatorSystem
 
         [SerializeField] private GridLayoutData gridLayoutData;
         [SerializeField] private CardLayoutHandler cardLayoutHandler;
+        [SerializeField] private CardSelector cardSelector;
 
         private Vector2Int currentGridDimension = new Vector2Int(2, 2);
         private LevelData currentLevelData;
         private AllLevelData levelData => LevelDataManager.Instance.GetLevelData();
         private const string defaultLevelName = "Test";
+        private Vector2Int currentGridIndex;
 
         public void Awake()
         {
+            cardSelector.Init(OnCardSelect);
             backBtn.onClick.AddListener(OnBackBtnClick);
             CreateBtn.onClick.AddListener(Create);
             loadBtn.onClick.AddListener(Load);
@@ -55,6 +58,12 @@ namespace CardGame.CreatorSystem
             gridDropdown.ClearOptions();
             gridDropdown.AddOptions(gridOptions);
             PopulateUI();
+            
+        }
+
+        private void OnCardSelect(int cardId)
+        {
+            cardLayoutHandler.SetImageAtIndex(currentGridIndex, cardData.GetCardById(cardId));
         }
 
         private void OnTextEnter(string str)
@@ -181,7 +190,7 @@ namespace CardGame.CreatorSystem
                     ++k;
                 }
 
-                cardLayoutHandler.CreateLayout(currentLevelData.gridDimension);
+                cardLayoutHandler.CreateLayout(currentLevelData.gridDimension,OnCardSelectInGrid);
                 for (int i = 0; i < currentLevelData.gridDimension.x; i++)
                 {
                     for (int j = 0; j < currentLevelData.gridDimension.y; j++)
@@ -191,6 +200,11 @@ namespace CardGame.CreatorSystem
                     }
                 }
             }
+        }
+
+        private void OnCardSelectInGrid(Vector2Int index)
+        {
+            currentGridIndex = index;
         }
 
         private void Save()

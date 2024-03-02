@@ -32,6 +32,8 @@ namespace CardGame
             img.sprite = sprite;
             if (sprite == null)
                 img.color = defaultColor;
+            else
+                img.color=Color.white;
         }
 
         public void MarkAsSelected(bool isSelected)

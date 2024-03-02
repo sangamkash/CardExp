@@ -16,14 +16,16 @@ namespace CardGame.CreatorSystem
         private Vector2 dimension;
         private Card[][] cardLayout;
         private Card selectedCard;
+        private Action<Vector2Int> onCardSelected;
 
         private void Awake()
         {
             pool = new GenericMonoPool<Card>(prefab);
         }
 
-        public void CreateLayout(Vector2Int dimension)
+        public void CreateLayout(Vector2Int dimension,Action<Vector2Int> onCardSelected)
         {
+            this.onCardSelected = onCardSelected;
             this.dimension = dimension;
             pool.ResetAllPool();
             var containerDimension = container.rect.size;
@@ -51,6 +53,10 @@ namespace CardGame.CreatorSystem
                     {
                         selectedCard = t;
                         t.MarkAsSelected(true);
+                    }
+                    else
+                    {
+                        t.MarkAsSelected(false);
                     }
                     t.transform.SetSiblingIndex(k);
                     k++;
@@ -94,6 +100,7 @@ namespace CardGame.CreatorSystem
                     }
                 }
             }
+            onCardSelected?.Invoke(index);
         }
 
     }
