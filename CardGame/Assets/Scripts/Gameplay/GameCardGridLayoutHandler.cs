@@ -14,9 +14,11 @@ namespace CardGame.GamePlay
         private Action<bool> onMatch;
         private LevelData levelData;
         private int clickCount;
+        private int[][] gridData;
 
-        public void CreateLayout(LevelData levelData,Action<bool> onMatch)
+        public void CreateLayout(LevelData levelData,Action<bool> onMatch,int[][] gridData)
         {
+            this.gridData = gridData;
             this.levelData = levelData;
             this.onMatch = onMatch;
             CreateLayout(levelData.gridDimension);
@@ -24,7 +26,7 @@ namespace CardGame.GamePlay
         protected override void InitCell(GameCard obj, Vector2Int currentIndex)
         {
             var cardId = levelData.cardIds[currentIndex.x][currentIndex.y];
-            obj.Init(cardData.GetCardById(cardId),cardData.BackSprite, () =>
+            obj.Init(cardData.GetCardById(cardId), () =>
             {
                 OnCardSelected(cardId,currentIndex);
             });
@@ -38,6 +40,8 @@ namespace CardGame.GamePlay
             {
                 GetObjByIndex(lastSelectedIndex).MarkAsReviled();
                 GetObjByIndex(index).MarkAsReviled();
+                gridData[lastSelectedIndex.x][lastSelectedIndex.y] = -1;
+                gridData[index.x][index.y] = -1;
                 matchFound = true;
                 clickCount = 0;
             }

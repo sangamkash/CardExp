@@ -12,20 +12,20 @@ namespace CardGame.GamePlay
         [SerializeField] private Button button;
         [SerializeField] private Image img;
         private Sprite frontSprite;
-        private Sprite backSprite;
         private Action onButtonClick;
 
-        public void Init(Sprite frontSprite, Sprite backSprite,Action onButtonClick)
+        public void Init(Sprite frontSprite,Action onButtonClick)
         {
             this.onButtonClick = onButtonClick;
             this.frontSprite = frontSprite;
-            this.backSprite = backSprite;
             img.sprite = frontSprite;
             img.color = new Color(1, 1, 1, 1f);
             button.interactable = transform;
             button.onClick.RemoveAllListeners();
             button.onClick.AddListener(OnButtonClick);
             StartCoroutine(HideImage());
+            if (frontSprite == null)
+                MarkAsReviled();
         }
 
         private void OnButtonClick()
@@ -39,7 +39,7 @@ namespace CardGame.GamePlay
         private IEnumerator HideImage()
         {
             yield return new WaitForSeconds(1);
-            img.sprite = backSprite;
+            img.sprite = null;
         }
 
         public void MarkAsReviled()
@@ -50,7 +50,6 @@ namespace CardGame.GamePlay
         private void OnDisable()
         {
             frontSprite = null;
-            backSprite = null;
         }
     }
 }

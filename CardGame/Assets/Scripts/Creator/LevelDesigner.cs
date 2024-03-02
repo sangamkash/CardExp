@@ -182,6 +182,7 @@ namespace CardGame.CreatorSystem
             }
             
             var dic = new Dictionary<int, int>();//id and count;
+            var emptyCount = 0;
             for (var i = 0; i < data.cardIds.Length; i++)
             {
                 var cards = data.cardIds[i];
@@ -190,8 +191,8 @@ namespace CardGame.CreatorSystem
                     var card = cards[j];
                     if (card == -1)
                     {
-                        Debug.Log($"<color=red>Image is not assigned to Grid {i}x{j}</color>");
-                        return false;
+                       // Debug.Log($"<color=red>Image is not assigned to Grid {i}x{j}</color>");
+                       emptyCount++;
                     }
                     else
                     {
@@ -205,6 +206,12 @@ namespace CardGame.CreatorSystem
                         }
                     }
                 }
+            }
+
+            if (emptyCount == data.gridDimension.x * data.gridDimension.y)
+            {
+                Debug.Log($"<color=red>all cell should not be empty</color>");
+                return false;
             }
 
             foreach (var cardCount in dic)
