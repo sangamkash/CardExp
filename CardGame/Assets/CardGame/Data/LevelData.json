@@ -1,6 +1,41 @@
 {
   "levelDatas": [
     {
+      "levelName": "case3",
+      "gridDimension": {
+        "x": 4,
+        "y": 4,
+        "magnitude": 5.656854,
+        "sqrMagnitude": 32
+      },
+      "cardIds": [
+        [
+          10,
+          14,
+          15,
+          13
+        ],
+        [
+          11,
+          10,
+          2,
+          12
+        ],
+        [
+          13,
+          2,
+          14,
+          3
+        ],
+        [
+          11,
+          15,
+          3,
+          12
+        ]
+      ]
+    },
+    {
       "levelName": "Case 2",
       "gridDimension": {
         "x": 4,

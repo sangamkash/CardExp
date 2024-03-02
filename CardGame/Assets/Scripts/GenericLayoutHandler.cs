@@ -21,7 +21,7 @@ namespace CardGame
             pool = new GenericMonoPool<T>(prefab);
         }
 
-        public void CreateLayout(Vector2Int dimension)
+        protected void CreateLayout(Vector2Int dimension)
         {
             this.dimension = dimension;
             pool.ResetAllPool();
@@ -42,6 +42,7 @@ namespace CardGame
                     var t = pool.GetObject(container);
                     t.transform.SetSiblingIndex(k);
                     var ci = new Vector2Int(i, j);
+                    objLayout[i][j] = t;
                     InitCell(t, ci);
                     k++;
                 }
@@ -50,7 +51,7 @@ namespace CardGame
 
         protected abstract void InitCell(T obj, Vector2Int currentIndex);
 
-        protected T GetCardAtIndex(Vector2Int index)
+        protected T GetObjByIndex(Vector2Int index)
         {
             if (index.x < dimension.x && index.y < dimension.y && index.x>=0 && index.y >=0)
             {

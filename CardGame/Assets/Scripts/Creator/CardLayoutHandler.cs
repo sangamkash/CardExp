@@ -24,7 +24,6 @@ namespace CardGame.CreatorSystem
             {
                 OnCardSelected(currentIndex);
             }, null, false);
-            objLayout[currentIndex.x][currentIndex.y] = obj;
             if (currentIndex.x == 0 && currentIndex.y == 0)
             {
                 selectedCard = obj;
@@ -36,18 +35,9 @@ namespace CardGame.CreatorSystem
             }
         }
 
-        private Card GetCardAtIndex(Vector2Int index)
-        {
-            if (index.x < dimension.x && index.y < dimension.y && index.x>=0 && index.y >=0)
-            {
-                return objLayout[index.x][index.y];
-            }
-            return null;
-        }
-
         public void SetImageAtIndex(Vector2Int index, Sprite sprite)
         {
-            var card = GetCardAtIndex(index);
+            var card = GetObjByIndex(index);
             if (card != null)
             {
                 card.SetImage(sprite);
