@@ -30,10 +30,22 @@ namespace CardGame.GameData
 
         public AllLevelData GetLevelData() => data;
 
+        private string GetPath()
+        {
+#if UNITY_EDITOR
+            return  Application.dataPath + "/" + JsonFilePath;
+#else
+            
+            return   Application.persistentDataPath;
+#endif
+            
+        }
+
         public void Save()
         {
             Debug.Log("<color=green>TAG::LevelDataManager========================Saving Data ====================================</color>");
-            var path = Application.dataPath + "/" + JsonFilePath;
+#if UNITY_EDITOR
+            var path = GetPath();
             var directoryPath = path.Replace("/", "\\");
             if (!Directory.Exists(path))
             {
@@ -42,12 +54,16 @@ namespace CardGame.GameData
             
             var filepath = path + "/" + FileName;
             filepath.WriteFile(JsonConvert.SerializeObject(data,Formatting.Indented));
+#else
+            var path= GetPath() + "/" + FileName;
+            path.WriteFile(JsonConvert.SerializeObject(data,Formatting.Indented));
+#endif
         }
 
         private void LoadData()
         {
             data = new AllLevelData(); 
-            var filepath = Application.dataPath + "/" + JsonFilePath + "/" + FileName;
+            var filepath = GetPath()+ "/" + FileName;
             var json = string.Empty;
             if (filepath.CheckAndReadFile(out json))
             {
